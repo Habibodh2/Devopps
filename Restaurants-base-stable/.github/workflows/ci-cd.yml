@@ -1,0 +1,27 @@
+# Emplacement obligatoire : .github/workflows/nom-du-fichier.yml
+# Ce dossier doit être à la racine de votre dépôt GitHub
+name: Mon premier workflow # Nom affiché dans l'onglet 'Actions' de GitHub
+
+on: # TRIGGER -- Quand ce workflow se déclenche
+  push: # Événement : un git push
+    branches: [ main ] # Seulement sur la branche 'main'
+
+jobs: # Liste des jobs à exécuter
+  mon-premier-job: # Nom du job (vous choisissez)
+    runs-on: ubuntu-latest # Sur quelle machine virtuelle
+    
+    steps: # Liste des étapes du job
+      - name: Étape 1 -- Cloner le dépôt
+        uses: actions/checkout@v4 # Action officielle GitHub pour cloner
+        # 'uses' = utiliser une action préfabriquée
+        
+      - name: Étape 2 -- Afficher un message
+        run: echo 'Bonjour depuis GitHub Actions !'
+        # 'run' = exécuter une commande
+
+      # EXEMPLE POUR TES DEUX DERNIÈRES LIGNES :
+      - name: Étape 3 -- Connexion à Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
